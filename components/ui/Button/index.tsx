@@ -1,11 +1,12 @@
 import Spinner from "../Spinner";
+import React from "react";
 
 export type ButtonProps = {
     children: string,
     onClick?: () => void;
     disabled?: boolean;
     variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-    size?: 'sm' | 'md' | 'lg' | 'xl';
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
     loading?: boolean;
     icon?: React.ReactNode;
     iconPosition?: 'left' | 'right';
@@ -37,6 +38,7 @@ export default function Button(
         md: 'py-2 px-4',
         lg: 'py-3 px-6',
         xl: 'py-4 px-8',
+        full: 'w-full'
     }
     const iconPositions = {
         left: 'flex-row',

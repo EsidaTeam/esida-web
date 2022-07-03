@@ -1,22 +1,29 @@
+import InputWrapper from "../InputWrapper";
+
 export type SelectProps = {
     id: string;
-    options: string[];
+    options: SelectOption[];
     label?: string;
     value?: string;
     disabled?: boolean;
+    error?: string;
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function Select({id, options, label, value, disabled, onChange}: SelectProps) {
+export type SelectOption = {
+    value: string;
+    label: string;
+}
+
+export default function Select({id, options, label, value, disabled, error, onChange}: SelectProps) {
     return (
-        <div className="flex flex-col w-fit gap-2 mb-4">
-            <label className="font-bold" htmlFor={id}>{label}</label>
+        <InputWrapper id={id} label={label} error={error}>
             <select
                 className={`rounded bg-black border border-solid border-gray-dark focus:border-gray focus:outline-none px-4 py-2 ${disabled ? 'cursor-not-allowed text-gray-dark' : 'cursor-pointer'}`}
                 title={label} id={id} value={value} onChange={onChange} disabled={disabled}
             >
-                {options.map((o) => <option key={o} value={o}>{o}</option>)}
+                {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
-        </div>
+        </InputWrapper>
     )
 }

@@ -13,12 +13,27 @@ const Demo: NextPage = () => {
             <Select label="Variant" id="variant" value={variant} disabled={!enabled} onChange={(e) => {
                 setVariant(e.target.value as "primary" | "secondary" | "success" | "danger" | "warning")
             }} options={[
-                "secondary",
-                "primary",
-                "success",
-                "danger",
-                "warning",
-            ]}/>
+                {
+                    value: "secondary",
+                    label: "Secondary",
+                },
+                {
+                    value: "primary",
+                    label: "Primary",
+                },
+                {
+                    value: "success",
+                    label: "Success",
+                },
+                {
+                    value: "danger",
+                    label: "Danger",
+                },
+                {
+                    value: "warning",
+                    label: "Warning",
+                },
+            ]} error={variant === 'danger' ? 'aww hell nah' : undefined}/>
 
             <Toggle label="enabled" id="enabled" value={enabled} onChange={(e) => {
                 setEnabled(e.target.checked)
@@ -30,7 +45,7 @@ const Demo: NextPage = () => {
 
             <Toggle id={'sex'} disabled={!enabled} label='Toggle'/>
 
-            <Input id='sex2' disabled={!enabled} label='Field' placeholder='Placeholder'/>
+            <Input id='sex2' disabled={!enabled} label='Field' placeholder='Placeholder' error={variant === 'danger' ? 'not the!!!' : undefined} />
 
             <Button variant={variant} disabled={!enabled} loading={loading} onClick={() => {
                 setLoading(true)
