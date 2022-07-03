@@ -1,6 +1,8 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
 import Header from "../Header";
+import Footer from "../Footer";
+import React from "react";
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -24,7 +26,7 @@ export default function Layout({children, title, description, type}: LayoutProps
                 <meta property="og:description" content={description}/>
                 <meta property="og:type" content={type || "website"}/>
                 <meta property="og:url" content={fullUrl}/>
-                <meta property="og:image" content={`${url}/og.png`}/>
+                <meta property="og:image" content={`${url}/images/og.png`}/>
                 <meta property="og:image:width" content="1200"/>
                 <meta property="og:image:height" content="630"/>
                 <meta property="og:image:type" content="image/png"/>
@@ -33,8 +35,9 @@ export default function Layout({children, title, description, type}: LayoutProps
                 <meta property="og:locale" content="ru_RU"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Header/>
-            <main className="p-5 min-h-full">{children}</main>
+            <Header />
+            <main className="p-5 min-h-screen">{children}</main>
+            <Footer />
         </div>
     )
 }

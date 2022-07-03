@@ -46,12 +46,13 @@ const Demo: NextPage = () => {
 
             <Toggle id={'sex'} disabled={!enabled} label='Toggle'/>
 
-            <Input id='sex2' disabled={!enabled} label='Field' placeholder='Placeholder' error={variant === 'danger' ? 'not the!!!' : undefined} />
+            <Input id='sex2' disabled={!enabled} label='Field' placeholder='Placeholder'
+                   error={variant === 'danger' ? 'not the!!!' : undefined}/>
 
             <Button variant={variant} disabled={!enabled} loading={loading} onClick={() => {
                 setLoading(true)
                 setTimeout(() => setLoading(false), Math.random() * 2000 + 600)
-            }} icon={<FaBeer />}>Button</Button>
+            }} icon={<FaBeer/>}>Button</Button>
 
             <Spinner variant={variant}/>
         </Layout>
