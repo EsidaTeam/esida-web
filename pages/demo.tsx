@@ -2,6 +2,7 @@ import type {NextPage} from 'next'
 import {useState} from 'react'
 import {Layout} from '../components/common';
 import {Button, Input, Select, Spinner, Toggle} from '../components/ui'
+import {FaBeer} from "react-icons/fa";
 
 const Demo: NextPage = () => {
     const [variant, setVariant] = useState<"primary" | "secondary" | "success" | "danger" | "warning">('primary');
@@ -50,7 +51,7 @@ const Demo: NextPage = () => {
             <Button variant={variant} disabled={!enabled} loading={loading} onClick={() => {
                 setLoading(true)
                 setTimeout(() => setLoading(false), Math.random() * 2000 + 600)
-            }}>Button</Button>
+            }} icon={<FaBeer />}>Button</Button>
 
             <Spinner variant={variant}/>
         </Layout>

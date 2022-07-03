@@ -47,7 +47,7 @@ export default function Button(
 
     return (
         <button
-            className={`flex transition-colors bg-black font-bold rounded border border-solid focus:outline-none ${active ? variants[variant] + " cursor-pointer" : inactiveStyle} ${sizes[size]} ${iconPositions[iconPosition]}`}
+            className={`flex justify-center items-center gap-2 transition-colors bg-black font-bold rounded border border-solid focus:outline-none ${active ? variants[variant] + " cursor-pointer" : inactiveStyle} ${sizes[size]} ${iconPositions[iconPosition]}`}
             onClick={onClick} disabled={!active}>
             {loading ? (
                 <>

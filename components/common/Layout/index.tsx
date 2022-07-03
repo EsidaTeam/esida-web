@@ -1,5 +1,6 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
+import Header from "../Header";
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -32,6 +33,7 @@ export default function Layout({children, title, description, type}: LayoutProps
                 <meta property="og:locale" content="ru_RU"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
+            <Header/>
             <main className="p-5 min-h-full">{children}</main>
         </div>
     )
