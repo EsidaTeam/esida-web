@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/future/image";
 import {FaUser} from "react-icons/fa";
+import {useSession} from "../../../utils/hooks";
 
 export default function Header() {
+    const session = useSession();
+
     return (
         <header className="flex justify-around items-center p-4 border-b border-solid border-gray-dark text-gray">
             <Link href="/">
@@ -21,10 +24,15 @@ export default function Header() {
                 </Link>
             </nav>
 
-            <Link href="/auth">
-                <a className="text-primary flex items-center gap-2"><FaUser/> Авторизация</a>
-            </Link>
-
+            {session ? (
+                <Link href="/me">
+                    <a className="text-primary flex items-center gap-2"><FaUser/> {session.user?.email}</a>
+                </Link>
+            ) : (
+                <Link href="/auth">
+                    <a className="text-primary flex items-center gap-2"><FaUser/> Авторизация</a>
+                </Link>
+            )}
         </header>
     );
 }

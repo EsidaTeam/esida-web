@@ -34,11 +34,11 @@ export default function Button(
         warning: 'text-white focus:bg-warning hover:bg-warning border-warning',
     }
     const sizes = {
-        sm: 'py-1 px-2',
-        md: 'py-2 px-4',
-        lg: 'py-3 px-6',
-        xl: 'py-4 px-8',
-        full: 'w-full'
+        sm: 'py-1 px-2 w-fit',
+        md: 'py-2 px-4 w-fit',
+        lg: 'py-3 px-6 w-fit',
+        xl: 'py-4 px-8 w-fit',
+        full: 'py-2 w-full'
     }
     const iconPositions = {
         left: 'flex-row',
