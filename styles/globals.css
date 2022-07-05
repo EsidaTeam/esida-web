@@ -20,6 +20,14 @@ a {
   box-sizing: border-box;
 }
 
+img {
+  user-select: none;
+}
+
+img.no-drag {
+  -webkit-user-drag: none;
+}
+
 body::-webkit-scrollbar {
   @apply w-2;
 }
