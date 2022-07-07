@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Image from "next/future/image";
 import {BsGearFill, BsPersonBadgeFill, BsPersonFill, BsPersonXFill} from "react-icons/bs";
-import {useUser} from "../../../utils/hooks";
 import {useState} from "react";
+import {useUser} from "@supabase/auth-helpers-react";
+import {useUserData} from "../../../utils/hooks";
 
 export default function Header() {
-    const user = useUser({});
+    const { user } = useUser();
+    const userData = useUserData(user);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const menuItems = [
         {
@@ -43,11 +46,11 @@ export default function Header() {
                 </Link>
             </nav>
 
-            {user.user ? (
+            {user ? (
                 <>
                     <a className="relative group text-primary flex items-center gap-2" href="#"
                        onClick={() => setMenuOpen(!menuOpen)}>
-                        <BsPersonFill/> {user.userData.username || "username"}
+                        <BsPersonFill/> {userData?.username || "username"}
                         <div
                             className={`absolute right-0 w-fit top-20 p-8 rounded bg-black border border-solid border-gray-dark z-10 flex flex-col gap-2 ${menuOpen ? 'block' : 'hidden'}`}>
 

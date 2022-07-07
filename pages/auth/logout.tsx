@@ -1,13 +1,13 @@
 import {NextPage} from "next";
 import {useEffect} from "react";
 import Router from "next/router";
-import {supabase} from "../../utils/supabaseClient";
 import {Layout} from "../../components/common";
 import {Spinner} from "../../components/ui";
+import {supabaseClient} from "@supabase/auth-helpers-nextjs";
 
 const Logout: NextPage = () => {
     useEffect(() => {
-        supabase.auth.signOut().then(() => {
+        supabaseClient.auth.signOut().then(() => {
             Router.push("/");
         })
     }, []);

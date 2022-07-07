@@ -2,12 +2,16 @@ import {NextPage} from "next";
 import {Button, Input} from "../../components/ui";
 import {Layout} from "../../components/common";
 import {useState} from "react";
-import {supabase} from "../../utils/supabaseClient";
-import {useFormField, useSession} from "../../utils/hooks";
+import {useFormField} from "../../utils/hooks";
 import Router from "next/router";
+import {useUser} from "@supabase/auth-helpers-react";
+import {supabaseClient} from "@supabase/auth-helpers-nextjs";
 
 const Auth: NextPage = () => {
-    const sesssion = useSession({redirectTo: '/', redirectIfFound: true})
+    const { user } = useUser()
+    if (user) {
+        Router.push("/")
+    }
 
     const [isLogin, setIsLogin] = useState(true)
     const [loading, setLoading] = useState(false)
@@ -50,7 +54,7 @@ const Auth: NextPage = () => {
     const handleRegistration = async () => {
         try {
             setLoading(true)
-            const { error } = await supabase.auth.signUp({ email: email.value, password: password.value })
+            const { error } = await supabaseClient.auth.signUp({ email: email.value, password: password.value })
             if (error) throw error
             alert('Регистрация успешна. Проверьте почту для подтверждения аккаунта.')
         } catch (error: any) {
@@ -63,7 +67,7 @@ const Auth: NextPage = () => {
     const handleLogin = async () => {
         try {
             setLoading(true)
-            const { error } = await supabase.auth.signIn({ email: email.value, password: password.value })
+            const { error } = await supabaseClient.auth.signIn({ email: email.value, password: password.value })
             if (error) throw error
             await Router.push('/')
         } catch (error: any) {

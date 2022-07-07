@@ -1,51 +1,26 @@
 import {useEffect, useState} from "react";
-import {supabase} from "./supabaseClient";
-import {Session, User} from "@supabase/gotrue-js";
-import Router from "next/router";
+import {supabaseClient} from "@supabase/auth-helpers-nextjs";
+import {User} from "@supabase/auth-helpers-react";
 
-export type AuthHookProps = {
-    redirectTo?: string,
-    redirectIfFound?: boolean
-}
+export function useUserData(user: User | null) {
+    const [data, setData] = useState<any | null>();
 
-export function useSession({redirectTo, redirectIfFound = false}: AuthHookProps = {}) {
-    const [session, setSession] = useState<Session | null>(null)
     useEffect(() => {
-        const s = supabase.auth.session()
-        setSession(s)
-        if (redirectTo && Boolean(redirectIfFound) === Boolean(s)) {
-            Router.push(redirectTo)
-        }
-
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-        })
-    }, [redirectIfFound, redirectTo])
-
-    return session;
-}
-
-export function useUser(props: AuthHookProps = {}) {
-    const session = useSession(props)
-    const [user, setUser] = useState<{user?: User | null, userData?: any, error?: any}>({})
-    useEffect(() => {
-        (async () => {
-            const usr = await supabase.auth.user()
-            let { data, error } = await supabase
+        if (user)
+            supabaseClient
                 .from('profiles')
-                .select(`username, website, avatar_url`)
-                .eq('id', usr?.id)
+                .select('*')
                 .single()
+                .then(
+                    (
+                        {data}
+                    ) => {
+                        setData(data)
+                    }
+                );
+    }, [user]);
 
-            setUser({
-                user: usr,
-                userData: data,
-                error
-            })
-        })();
-    }, [session])
-
-    return user;
+    return data;
 }
 
 export type FormFieldProps = {
@@ -53,6 +28,8 @@ export type FormFieldProps = {
     label?: string,
     placeholder?: string,
     type?: "number" | "text" | "email" | "password",
+    defaultValue?: string,
+    onChange?: (s: string | undefined) => void,
     validation: {
         required?: boolean,
         minLength?: number,
@@ -73,11 +50,12 @@ export type FormFieldData = {
     placeholder?: string,
     type?: "number" | "text" | "email" | "password",
     error?: string
-    onChange?: (e: any) => void,
+    onChange: (e: any) => void,
+    setValue: (value: string | undefined) => void
 }
 
 export function useFormField(props: FormFieldProps): FormFieldData {
-    const [value, setValue] = useState<string | undefined>(undefined)
+    const [value, setValue] = useState<string | undefined>(props.defaultValue || undefined)
     let error = undefined;
     if (props.validation.required && value === "") {
         error = "Обязательное поле не заполнено"
@@ -103,6 +81,9 @@ export function useFormField(props: FormFieldProps): FormFieldData {
         placeholder: props.placeholder,
         type: props.type,
         error,
+        setValue: (e: string | undefined) => {
+            setValue(e)
+        },
         onChange: (e: any) => setValue(e.target.value),
     }
 }
