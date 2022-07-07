@@ -10,7 +10,8 @@ export function useUserData(user: User | null) {
             supabaseClient
                 .from('profiles')
                 .select('*')
-                .single()
+                .eq('id', user.id)
+                .maybeSingle()
                 .then(
                     (
                         {data}

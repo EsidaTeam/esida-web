@@ -50,7 +50,7 @@ export default function Header() {
                 <>
                     <a className="relative group text-primary flex items-center gap-2" href="#"
                        onClick={() => setMenuOpen(!menuOpen)}>
-                        <BsPersonFill/> {userData?.username || "username"}
+                        <BsPersonFill/> {(userData && userData.username) || "username"}
                         <div
                             className={`absolute right-0 w-fit top-20 p-8 rounded bg-black border border-solid border-gray-dark z-10 flex flex-col gap-2 ${menuOpen ? 'block' : 'hidden'}`}>
 

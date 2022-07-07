@@ -3,7 +3,7 @@ import {useFormField} from "../../utils/hooks";
 import {Button, Input} from "../../components/ui";
 import {Layout} from "../../components/common";
 import {useState} from "react";
-import {supabase} from "../../utils/supabaseClient";
+import {supabaseClient} from "@supabase/auth-helpers-nextjs";
 
 const ResetPassword: NextPage = () => {
     const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ const ResetPassword: NextPage = () => {
     const handleReset = async () => {
         try {
             setLoading(true)
-            const { error } = await supabase.auth.api.resetPasswordForEmail(email.value as string)
+            const { error } = await supabaseClient.auth.api.resetPasswordForEmail(email.value as string)
             if (error) throw error
             alert('Письмо с инструкциями по восстановлению пароля отправлено на почту.')
         } catch (error: any) {
